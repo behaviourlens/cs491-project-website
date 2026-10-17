@@ -1,16 +1,59 @@
-# React + Vite
+# BehaviourLens — Project Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Project information website for **BehaviourLens**, a CS491/CS492 Senior Design Project at Bilkent University. It hosts the project description, team, course deliverables, and repository links.
 
-Currently, two official plugins are available:
+Live site: https://behaviourlens.github.io/cs491-project-website/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+This repository contains only the information website, not the BehaviourLens application.
 
-## React Compiler
+## Development
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Requires Node.js 20.19+ or 22.12+.
 
-## Expanding the ESLint configuration
+```bash
+npm install
+npm run dev       # start the development server
+npm run build     # production build into dist/
+npm run preview   # serve the production build locally
+npm run lint
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Updating content
+
+All content lives in `src/data/`, so updates don't require touching components.
+
+| File | Contents |
+|---|---|
+| `src/data/project.js` | Name, pronunciation, description, objective, research direction |
+| `src/data/features.js` | Key features and their status (`planned`, `in-progress`, `implemented`) |
+| `src/data/team.js` | Team members and advisors (add jury members to `advisors`) |
+| `src/data/documents.js` | Course deliverables |
+| `src/data/repositories.js` | GitHub repositories |
+
+### Publishing a deliverable
+
+1. Put the PDF in `public/documents/`, using a lowercase, hyphenated name (e.g. `analysis-report.pdf`).
+2. In `src/data/documents.js`, change the entry's `status` to `'available'` and set `file: 'documents/analysis-report.pdf'` (and optionally `submittedDate`).
+
+Entries with status `'upcoming'` are shown as plain text with an "Upcoming" badge and cannot be downloaded.
+
+### Pronunciation audio
+
+1. Record a 1–2 second clip of the project name and save it as `public/assets/pronunciation.mp3`.
+2. In `src/data/project.js`, set `pronunciation.audio` to `'assets/pronunciation.mp3'`.
+
+The play button is hidden while `audio` is `null`.
+
+## File paths and the base path
+
+GitHub Pages serves the site under `/cs491-project-website/`, which is set as `base` in `vite.config.js`.
+
+- Never start paths to files in `public/` with `/`.
+- Store paths without a leading slash (e.g. `'documents/report.pdf'`) and build URLs with `assetUrl()` from `src/utils/assetUrl.js`.
+- If the repository is renamed or a custom domain is added, update `base` in `vite.config.js`; nothing else needs to change.
+
+## Deployment
+
+Every push to `main` builds and deploys the site through `.github/workflows/deploy.yml`.
+
+One-time setup: in the repository, open **Settings → Pages** and set **Build and deployment → Source** to **GitHub Actions**. If the workflow ran before this was enabled, re-run it from the **Actions** tab.
