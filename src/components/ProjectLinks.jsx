@@ -12,7 +12,7 @@ function ProjectLinks() {
         <>
           Project repositories are hosted under the{' '}
           <a href={githubOrganization} target="_blank" rel="noopener noreferrer">
-            BehaviourLens GitHub organization
+            BehaviorLens GitHub organization
           </a>
           .
         </>

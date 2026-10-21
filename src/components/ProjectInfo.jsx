@@ -7,6 +7,7 @@ const featureStatusLabels = {
   planned: 'Planned',
   'in-progress': 'In progress',
   implemented: 'Implemented',
+  future: 'Future work',
 };
 
 function ProjectInfo() {
@@ -65,6 +66,18 @@ function ProjectInfo() {
           ))}
           <p>{research.methodology}</p>
         </div>
+        <h4 className={styles.subheading}>Research questions</h4>
+        <ol className={`${styles.prose} ${styles.questions}`}>
+          {research.questions.map((question) => (
+            <li key={question}>{question}</li>
+          ))}
+        </ol>
+        <h4 className={styles.subheading}>Persona parameters</h4>
+        <ul role="list" className={styles.dimensions}>
+          {research.parameters.map((parameter) => (
+            <li key={parameter}>{parameter}</li>
+          ))}
+        </ul>
         <h4 className={styles.subheading}>Potential evaluation dimensions</h4>
         <ul role="list" className={styles.dimensions}>
           {research.dimensions.map((dimension) => (

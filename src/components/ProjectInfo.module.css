@@ -64,6 +64,15 @@
   color: var(--color-text-muted);
 }
 
+.questions {
+  margin-top: var(--space-3);
+  padding-left: var(--space-5);
+}
+
+.questions li + li {
+  margin-top: var(--space-2);
+}
+
 .dimensions {
   display: flex;
   flex-wrap: wrap;
